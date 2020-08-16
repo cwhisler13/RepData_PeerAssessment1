@@ -110,8 +110,5 @@ with(mean_day_type, xyplot(steps~interval | day_type, type = "l", xlab = "Interv
 
 ![](PA1_template_files/figure-html/day_of_week-1.png)<!-- -->
 
-<<<<<<< HEAD
 We can see from this graph that step activity on weekends tends to have two peaks, the largest of which is between 800 and 900, whereas weekend step activity is more consistent, but never reaches the level of the first weekday peak. Note that this is impacted by the imputation methods discussed above since this was calculated using imputed data.
-=======
-We can see from this graph that step activity on weekends tends to have two peaks, the largest of which is between 800 and 900, whereas weekend step activity is more consistent, but never reaches the level of the first weekday peak. Note that this is impacted by the imputation methods discussed above.
 
