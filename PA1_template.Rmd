@@ -24,7 +24,7 @@ activity <- read_csv("activity.csv")
 ```
 ## What is mean total number of steps taken per day?
 
-```{r mean_median}
+```{r total_steps}
 tot_step <- activity %>%
   group_by(date) %>%
   summarize(total_steps = sum(steps, na.rm = TRUE))
@@ -41,7 +41,7 @@ This graph is a histogram that displays the frequency of total number of steps p
 
 ## What is the average daily activity pattern?
 
-```{r daily_activity}
+```{r average_steps}
 interval_averages <- activity %>%
   group_by(interval) %>%
   summarize(avg_steps = mean(steps, na.rm = TRUE))
@@ -57,7 +57,7 @@ This graph shows the average number of steps taken per 5 minute time interval wi
 
 ## Imputing missing values
 
-```{r missing_values}
+```{r imputed_total_steps}
 total_missing <- length(which(is.na(activity)))
 
 imputed_steps <-ave(activity$steps,activity$interval,FUN=function(x) 
@@ -86,7 +86,7 @@ This graph shows the frequency of steps taken per day after imputing missing val
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
-```{r day_of_week}
+```{r day_of_week_analysis}
 
 activity_imputed$day_type <- factor(with(activity_imputed, ifelse(weekdays(date) == "Sunday" | weekdays(date) == "Saturday", "weekend", "weekday")))
 
