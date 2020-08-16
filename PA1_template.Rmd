@@ -8,15 +8,14 @@ output:
 knitr::opts_chunk$set(echo = TRUE, include = TRUE, message = FALSE, warning = FALSE)
 ```
 
-```{r packages, message = FALSE}
+## Loading and preprocessing the data
+
+```{r load_and_process, message = FALSE}
+
 library("tidyverse")
 library("ggplot2")
 library("lattice")
 library("lubridate")
-```
-## Loading and preprocessing the data
-
-```{r load_and_process, message = FALSE}
 
 unzip("activity.zip")
 activity <- read_csv("activity.csv")
@@ -24,7 +23,7 @@ activity <- read_csv("activity.csv")
 ```
 ## What is mean total number of steps taken per day?
 
-```{r total_steps}
+```{r total_steps_analysis}
 tot_step <- activity %>%
   group_by(date) %>%
   summarize(total_steps = sum(steps, na.rm = TRUE))
@@ -41,7 +40,7 @@ This graph is a histogram that displays the frequency of total number of steps p
 
 ## What is the average daily activity pattern?
 
-```{r average_steps}
+```{r average_steps_analysis}
 interval_averages <- activity %>%
   group_by(interval) %>%
   summarize(avg_steps = mean(steps, na.rm = TRUE))
@@ -57,7 +56,7 @@ This graph shows the average number of steps taken per 5 minute time interval wi
 
 ## Imputing missing values
 
-```{r imputed_total_steps}
+```{r imputed_total_steps_analysis}
 total_missing <- length(which(is.na(activity)))
 
 imputed_steps <-ave(activity$steps,activity$interval,FUN=function(x) 
@@ -86,7 +85,7 @@ This graph shows the frequency of steps taken per day after imputing missing val
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
-```{r day_of_week_analysis}
+```{r weekday_vs_weekend}
 
 activity_imputed$day_type <- factor(with(activity_imputed, ifelse(weekdays(date) == "Sunday" | weekdays(date) == "Saturday", "weekend", "weekday")))
 
@@ -100,5 +99,5 @@ with(mean_day_type, xyplot(steps~interval | day_type, type = "l", xlab = "Interv
 
 ```
 
-We can see from this graph that step activity on weekends tends to have two peaks, the largest of which is between 800 and 900, whereas weekend step activity is more consistent, but never reaches the level of the first weekday peak. Note that this is impacted by the imputation methods discussed above since this was calculated using imputed data.
+We can see from this graph that step activity on weekends tends to have two peaks, the largest of which is between 800 and 900, whereas weekend step activity is more consistent, but never reaches the level of the first weekday peak. Note that this data was imputed using the imputation methods described above.
 
